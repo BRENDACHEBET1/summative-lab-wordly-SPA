@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,28 +8,29 @@
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
 </head>
+
 <body>
     <div class="app-wrapper">
         <!-- header:contains logo and text -->
-         <header class="header">
+        <header class="header">
             <div class="logo">
                 <h1 class="logotext">w<span>O</span>rdly</h1>
                 <span class="logoicon">📚</span>
             </div>
-         </header>
+        </header>
 
-         <!-- Content  -->
-          <main class="content-card" id="content">
+        <!-- Content  -->
+        <main class="content" id="content">
             <!-- two divs appearing side by side -->
             <div class="main-layout">
                 <!-- Search Container on the left side -->
                 <div class="search-container">
-                    <div class="empty-state" id="empty-state">
-                        <p class="state-text">Enter a word 👇</p>
+                    <div class="prompt" id="prompt">
+                        <p class="prompt-text">Enter a word 👇</p>
                     </div>
                     <!-- Form -->
                     <div class="form">
@@ -40,10 +42,10 @@
                 </div>
 
                 <!-- Results Container on the right side -->
-                 <!-- To show an image which is later hidden after results are displeyd -->
+                <!-- To show an image which is later hidden after results are displeyd -->
                 <div class="results-container">
                     <!-- Initial image -->
-                    <img id="initial-image" src="dictionary-bckgrnd.png" alt="Dictionary background">
+                    <img id="initial-image" src="dictionary-bckgrnd.png" alt="Image with word Dictionary written">
 
                     <!-- Loading -->
                     <div class="state loading-state hidden" id="loading-state">
@@ -54,8 +56,7 @@
 
                     <!-- Error -->
                     <div class="state error-state hidden" id="error-state">
-                        <span class="state-icon">😬</span>
-                        <p class="state-text" id="error-message">Something went wrong. Try again!</p>
+                    <p class="state-text" id="error-message">Something went wrong. Try again!</p>
                     </div>
 
                     <!-- Results -->
@@ -70,16 +71,17 @@
                         <h3>Definition:</h3>
                         <ol id="definitions"></ol>
                         <!-- saved words -->
-                         <h3>Saved Words:</h3>
-                            <ul id="saved-words"></ul>
+                        <h3>Saved Words:</h3>
+                        <ul id="saved-words"></ul>
                     </div>
                 </div>
             </div>
         </main>
     </div>
     <script src="script.js"></script>
-    </div>
+
 
 
 </body>
+
 </html>

@@ -1,0 +1,15 @@
+  min-height: 100vh;
+rgb(230, 220, 220);
+
+// } else if (entry.phonetics && entry.phonetics.length > 0) {
+    //    for (let i = 0; i < entry.phonetics.length; i++) {
+    //      if (entry.phonetics[i].text) {
+    //        phonetic = entry.phonetics[i].text;
+    //        break;
+    //      }
+    //    }
+
+    // check if data exists
+  //   if (!data || data.length === 0) {
+  // throw new Error("notfound");
+  // }

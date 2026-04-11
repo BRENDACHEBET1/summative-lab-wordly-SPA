@@ -1,13 +1,13 @@
 // Getting elements
-const form = document.getElementById("form");
+const form = document.getElementById("form")
 const input = document.getElementById("text-input");
 
 const image = document.getElementById("initial-image");
 const loading = document.getElementById("loading-state");
-const resultBox = document.getElementById("result-state");
+const results = document.getElementById("result-state");
 const errorBox = document.getElementById("error-state");
 
-const wordInput = document.getElementById("word");
+const wordOutput = document.getElementById("word");
 const pronunciation = document.getElementById("pronunciation");
 const definitionOutput = document.getElementById("definitions");
 const audioOutput = document.getElementById("audio");
@@ -23,12 +23,12 @@ const savedWordsList = document.getElementById("saved-words");
 function setState(state) {
   image.classList.add("hidden");
   loading.classList.add("hidden");
-  resultBox.classList.add("hidden");
+  results.classList.add("hidden");
   errorBox.classList.add("hidden");
 
-  if (state === "idle") image.classList.remove("hidden");
+  // if (state === "idle") image.classList.remove("hidden");
   if (state === "loading") loading.classList.remove("hidden");
-  if (state === "result") resultBox.classList.remove("hidden");
+  if (state === "result") results.classList.remove("hidden");
   if (state === "error") errorBox.classList.remove("hidden");
 }
 
@@ -55,28 +55,19 @@ async function fetchWord(word) {
     if (!res.ok) throw new Error("notfound"); //catch block to display invalid
 
     const data = await res.json(); //parsing data
-    // check if data exists
-    if (!data || data.length === 0) {
-  throw new Error("notfound");
-  }
-    const entry = data[0];
+    
+   const entry = data[0];
 
     // WORD
-    wordInput.textContent = entry.word || word;
+    wordOutput.textContent = entry.word 
 
     // PRONUNCIATION
     let phonetic = "";
 
     if (entry.phonetic) {
       phonetic = entry.phonetic;
-    } else if (entry.phonetics && entry.phonetics.length > 0) {
-      for (let i = 0; i < entry.phonetics.length; i++) {
-        if (entry.phonetics[i].text) {
-          phonetic = entry.phonetics[i].text;
-          break;
-        }
-      }
-    }
+    
+     }
 
     if (phonetic) {
       pronunciation.textContent = "/" + phonetic + "/";
@@ -87,26 +78,27 @@ async function fetchWord(word) {
     // AUDIO 
     let audio = "";
 
-    if (entry.phonetics && entry.phonetics.length > 0) {
-      for (let i = 0; i < entry.phonetics.length; i++) {
-        if (entry.phonetics[i].audio && entry.phonetics[i].audio !== "") {
+     if (entry.phonetics && entry.phonetics.length > 0) { //check if phonetics exist
+       for (let i = 0; i < entry.phonetics.length; i++) { //oop through phonetics
+        if (entry.phonetics[i].audio && entry.phonetics[i].audio !== "") { //find audio 
           audio = entry.phonetics[i].audio;
-          break;
-        }
-      }
-    }
+           break;
+         }
+       }
+     }
 
     audioOutput.src = audio;
+   
+
 
     // DEFINITIONS 
-    const meanings = entry.meanings || [];
-    const defs = meanings[0]?.definitions || [];
+    const meanings = entry.meanings ;
+    const defs = meanings[0].definitions;
 
     definitionOutput.innerHTML = defs
       .slice(0, 2)
-      .map(d => "<li>" + d.definition + "</li>")
-      .join("");
-
+      .map(item => "<li>" + item.definition + "</li>")
+      .join("") //removes comma
     setState("result");
 
     // clear input field after results are displayed
@@ -134,8 +126,7 @@ form.addEventListener("submit", (event) => {
   fetchWord(word);
 });
 
-
-// connecting audio to speaker
+ // connecting audio to speaker
 speakerBtn.addEventListener("click", () => {
   if (audioOutput.src) {
     audioOutput.play();
@@ -146,16 +137,10 @@ speakerBtn.addEventListener("click", () => {
 // Save words
 let savedWords = JSON.parse(localStorage.getItem("words")) || [];
 
-function renderSavedWords() {
-  savedWordsList.innerHTML = savedWords
-    .map(word => `<li>${word}</li>`)
-    .join("");
-}
+
 // adding event listener to save button and limiting displayed words to three
 saveBtn.addEventListener("click", () => {
-  const currentWord = wordInput.textContent;
-
-  if (!currentWord) return;
+  const currentWord = wordOutput.textContent
 
   if (savedWords.includes(currentWord)) return;
 
@@ -176,4 +161,3 @@ function renderSavedWords() {
 }
 
 
-// setState("idle");
