@@ -26,7 +26,7 @@ function setState(state) {
   results.classList.add("hidden");
   errorBox.classList.add("hidden");
 
-  // if (state === "idle") image.classList.remove("hidden");
+ 
   if (state === "loading") loading.classList.remove("hidden");
   if (state === "result") results.classList.remove("hidden");
   if (state === "error") errorBox.classList.remove("hidden");
@@ -96,7 +96,7 @@ async function fetchWord(word) {
     const defs = meanings[0].definitions;
 
     definitionOutput.innerHTML = defs
-      .slice(0, 2)
+      .slice(0, 2) //restrict shown defs to two
       .map(item => "<li>" + item.definition + "</li>")
       .join("") //removes comma
     setState("result");
